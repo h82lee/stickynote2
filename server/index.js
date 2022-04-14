@@ -36,14 +36,14 @@ app.post ("/createNote", async (req,res) => {
 })
 
 app.put("/updateNote", async (req,res) =>{
-    const newTitle =req.body.newTitle;
+    const updatedContent= req.body.updatedContent
     const id = req.body.id;
 
     try {
-        await noteModel.findById(id, (error,noteToUpdate)=>{
-            noteToUpdate.title = newTitle;
-            noteToUpdate.save()
-        });
+        await noteModel.findById(id, (err, contentToUpdate)=>{
+            contentToUpdate.content = updatedContent;
+            contentToUpdate.save();
+        }).clone();
     } catch(err){
         console.log(err)
     }
